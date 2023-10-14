@@ -1,19 +1,19 @@
 # Payload Graphql View Plugin
 
-[![NPM](https://img.shields.io/npm/v/{{@innovixx/payload-graphql-view-plugin}})](https://www.npmjs.com/package/{{@innovixx/payload-graphql-view-plugin}})
+[![NPM](https://img.shields.io/npm/v/@innovixx/payload-graphql-view-plugin)](https://www.npmjs.com/package/@innovixx/payload-graphql-view-plugin)
 
-A plugin for [Payload](https://github.com/payloadcms/payload) {{DESCRIPTION}}.
+A plugin for [Payload](https://github.com/payloadcms/payload) that adds a graphql view with a graphql IDE to collections and globals.
 
 Core features:
 
-  - {{core features list}}
+  - add a graphql view to collections and globals
 
 ## Installation
 
 ```bash
-  yarn add {{@innovixx/payload-graphql-view-plugin}}
+  yarn add @innovixx/payload-graphql-view-plugin
   # OR
-  npm i {{@innovixx/payload-graphql-view-plugin}}
+  npm i @innovixx/payload-graphql-view-plugin
 ```
 
 ## Basic Usage
@@ -22,7 +22,7 @@ In the `plugins` array of your [Payload config](https://payloadcms.com/docs/conf
 
 ```js
 import { buildConfig } from 'payload/config';
-import plugin from '{{@innovixx/payload-graphql-view-plugin}}';
+import GraphqlPlugin from '@innovixx/payload-graphql-view-plugin';
 
 const config = buildConfig({
   collections: [
@@ -39,7 +39,9 @@ const config = buildConfig({
     }
   ],
   plugins: [
-    {{plugin()}}
+    GraphqlPlugin(
+      collections: ['pages']
+    )
   ]
 });
 
@@ -48,13 +50,17 @@ export default config;
 
 ### Options
 
-- `overwrites` : [key: string]: any | optional
+- `collections` : string[] | optional
 
-  An object of overwrites to apply to the plugin. This is useful for when you want to customize the plugin's behaviour without having to fork it. The object keys are the names of the properties you want to overwrite, and the values are the functions you want to use instead.
+  An array of collection slugs to add the Grapqhl view onto.
 
-  ```js
+- `globals` : string[] | optional
 
-  ```
+  An array of global slugs to add the Grapqhl view onto.
+
+- `graphqlUrl` : string | optional
+
+  Override url to the graphql endpoint.
 
 ## TypeScript
 
@@ -63,7 +69,7 @@ All types can be directly imported:
 ```js
 import {
   PluginConfig,
-} from '{{@innovixx/payload-graphql-view-plugin}}/types';
+} from '@innovixx/payload-graphql-view-plugin/types';
 ```
 
 ## Development
@@ -87,7 +93,7 @@ To actively develop or debug this plugin you can either work directly within the
 
    1. First clone the repo
    1. Then, `cd YOUR_PLUGIN_REPO && yarn && cd demo && cp env.example .env && yarn && yarn dev`
-   1. Now `cd` back into your own project and run, `yarn link {{@innovixx/payload-graphql-view-plugin}}`
+   1. Now `cd` back into your own project and run, `yarn link @innovixx/payload-graphql-view-plugin`
    1. If this plugin using React in any way, continue to the next step. Otherwise skip to step 7.
    1. From your own project, `cd node_modules/react && yarn link && cd ../react-dom && yarn link && cd ../../`
    1. Then, `cd YOUR_PLUGIN_REPO && yarn link react react-dom`
@@ -110,7 +116,7 @@ To actively develop or debug this plugin you can either work directly within the
              react: path.join(__dirname, "../node_modules/react"),
              "react-dom": path.join(__dirname, "../node_modules/react-dom"),
              payload: path.join(__dirname, "../node_modules/payload"),
-             "{{@innovixx/payload-graphql-view-plugin}}": path.join(
+             "@innovixx/payload-graphql-view-plugin": path.join(
                __dirname,
                "../../payload/payload-graphql-view-plugin/src"
              ),
