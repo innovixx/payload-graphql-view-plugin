@@ -47,7 +47,7 @@ export default (pluginConfig: PluginConfig): Plugin =>
         }
 
         return collection
-      }),
+      }) || [],
       // @ts-expect-error view prop type mismatch, but it works
       globals: config.globals?.map(global => {
         const isEnabled = pluginConfig?.globals?.includes(global.slug)
@@ -87,7 +87,7 @@ export default (pluginConfig: PluginConfig): Plugin =>
         }
 
         return global
-      }),
+      }) || [],
     }
 
     return updatedConfig
