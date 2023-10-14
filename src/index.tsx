@@ -31,9 +31,11 @@ export default (pluginConfig: PluginConfig): Plugin =>
                       Component: ({ user }) => (
                         <GraphqlViewComponent
                           user={user}
-                          initialEndpoint={`${config.serverURL}/api/${
-                            config.routes?.graphQL || 'graphql'
-                          }`}
+                          initialEndpoint={
+                            pluginConfig.graphqlUrl
+                              ? pluginConfig.graphqlUrl
+                              : `${config.serverURL}/api/${config.routes?.graphQL || 'graphql'}`
+                          }
                         />
                       ),
                     },
@@ -69,9 +71,11 @@ export default (pluginConfig: PluginConfig): Plugin =>
                       Component: ({ user }) => (
                         <GraphqlViewComponent
                           user={user}
-                          initialEndpoint={`${config.serverURL}/api/${
-                            config.routes?.graphQL || 'graphql'
-                          }`}
+                          initialEndpoint={
+                            pluginConfig.graphqlUrl
+                              ? pluginConfig.graphqlUrl
+                              : `${config.serverURL}/api/${config.routes?.graphQL || 'graphql'}`
+                          }
                         />
                       ),
                     },
