@@ -1,6 +1,6 @@
-# Payload Plugin Boilerplate
+# Payload Graphql View Plugin
 
-[![NPM](https://img.shields.io/npm/v/{{@innovixx/payload-plugin-boilerplate}})](https://www.npmjs.com/package/{{@innovixx/payload-plugin-boilerplate}})
+[![NPM](https://img.shields.io/npm/v/{{@innovixx/payload-graphql-view-plugin}})](https://www.npmjs.com/package/{{@innovixx/payload-graphql-view-plugin}})
 
 A plugin for [Payload](https://github.com/payloadcms/payload) {{DESCRIPTION}}.
 
@@ -11,9 +11,9 @@ Core features:
 ## Installation
 
 ```bash
-  yarn add {{@innovixx/payload-plugin-boilerplate}}
+  yarn add {{@innovixx/payload-graphql-view-plugin}}
   # OR
-  npm i {{@innovixx/payload-plugin-boilerplate}}
+  npm i {{@innovixx/payload-graphql-view-plugin}}
 ```
 
 ## Basic Usage
@@ -22,7 +22,7 @@ In the `plugins` array of your [Payload config](https://payloadcms.com/docs/conf
 
 ```js
 import { buildConfig } from 'payload/config';
-import plugin from '{{@innovixx/payload-plugin-boilerplate}}';
+import plugin from '{{@innovixx/payload-graphql-view-plugin}}';
 
 const config = buildConfig({
   collections: [
@@ -63,7 +63,7 @@ All types can be directly imported:
 ```js
 import {
   PluginConfig,
-} from '{{@innovixx/payload-plugin-boilerplate}}/types';
+} from '{{@innovixx/payload-graphql-view-plugin}}/types';
 ```
 
 ## Development
@@ -77,7 +77,7 @@ To actively develop or debug this plugin you can either work directly within the
    1. First clone the repo
    1. Then, `cd YOUR_PLUGIN_REPO && yarn && cd demo && yarn && yarn cleanDev`
    1. Now open `http://localhost:3000/admin` in your browser
-   1. Enter username `admin@innovixx.co.uk` and password `pa$$w0rd!`
+   1. Enter username `admin@innovixx.co.uk` and password `Pa$$w0rd!`
 
    That's it! Changes made in `./src` will be reflected in your demo. Keep in mind that the demo database is automatically seeded on every startup, any changes you make to the data get destroyed each time you reboot the app.
 
@@ -87,7 +87,7 @@ To actively develop or debug this plugin you can either work directly within the
 
    1. First clone the repo
    1. Then, `cd YOUR_PLUGIN_REPO && yarn && cd demo && cp env.example .env && yarn && yarn dev`
-   1. Now `cd` back into your own project and run, `yarn link {{@innovixx/payload-plugin-boilerplate}}`
+   1. Now `cd` back into your own project and run, `yarn link {{@innovixx/payload-graphql-view-plugin}}`
    1. If this plugin using React in any way, continue to the next step. Otherwise skip to step 7.
    1. From your own project, `cd node_modules/react && yarn link && cd ../react-dom && yarn link && cd ../../`
    1. Then, `cd YOUR_PLUGIN_REPO && yarn link react react-dom`
@@ -110,9 +110,9 @@ To actively develop or debug this plugin you can either work directly within the
              react: path.join(__dirname, "../node_modules/react"),
              "react-dom": path.join(__dirname, "../node_modules/react-dom"),
              payload: path.join(__dirname, "../node_modules/payload"),
-             "{{@innovixx/payload-plugin-boilerplate}}": path.join(
+             "{{@innovixx/payload-graphql-view-plugin}}": path.join(
                __dirname,
-               "../../payload/payload-plugin-boilerplate/src"
+               "../../payload/payload-graphql-view-plugin/src"
              ),
            },
          },

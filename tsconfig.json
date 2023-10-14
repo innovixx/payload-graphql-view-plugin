@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "target": "es2019",
+    "lib": [
+      "dom",
+      "dom.iterable",
+    ],
+    "target": "es5",
     "outDir": "./dist",
     "allowJs": true,
     "module": "commonjs",
@@ -13,6 +17,6 @@
     "strict": true,
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
   ],
 }

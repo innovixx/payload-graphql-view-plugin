@@ -5,7 +5,7 @@ import path from 'path'
 import { buildConfig } from 'payload/config'
 
 // eslint-disable-next-line import/no-relative-packages
-import plugin from '../../src'
+import plugin from '../../dist'
 import Media from './collections/Media'
 import Pages from './collections/Pages'
 import Posts from './collections/Posts'
@@ -47,7 +47,12 @@ export default buildConfig({
     defaultLocale: 'en',
     fallback: true,
   },
-  plugins: [plugin({})],
+  plugins: [
+    plugin({
+      collections: [Pages.slug],
+      globals: [HomePage.slug],
+    }),
+  ],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
   },
