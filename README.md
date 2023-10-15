@@ -39,9 +39,9 @@ const config = buildConfig({
     }
   ],
   plugins: [
-    GraphqlPlugin(
+    GraphqlPlugin({
       collections: ['pages']
-    )
+    })
   ]
 });
 
@@ -52,11 +52,11 @@ export default config;
 
 - `collections` : string[] | optional
 
-  An array of collection slugs to add the Grapqhl view onto.
+  An array of collection slugs to add the Grapqhl view onto. If not provided, the Grapqhl view will be added to all collections.
 
 - `globals` : string[] | optional
 
-  An array of global slugs to add the Grapqhl view onto.
+  An array of global slugs to add the Grapqhl view onto. If not provided, the Grapqhl view will be added to all globals.
 
 - `graphqlUrl` : string | optional
 

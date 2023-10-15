@@ -9,85 +9,88 @@ export default (pluginConfig: PluginConfig): Plugin =>
     const updatedConfig: Config = {
       ...config,
       // @ts-expect-error view prop type mismatch, but it works
-      collections: config.collections?.map(collection => {
-        const isEnabled = pluginConfig?.collections?.includes(collection.slug)
+      collections:
+        config.collections?.map(collection => {
+          const isEnabled =
+            pluginConfig?.collections?.includes(collection.slug) || !pluginConfig?.collections
 
-        if (isEnabled) {
-          return {
-            ...collection,
-            admin: {
-              ...collection.admin,
-              components: {
-                ...collection.admin?.components,
-                views: {
-                  Edit: {
-                    ...collection.admin?.components?.views?.Edit,
-                    Graphql: {
-                      path: '/graphql',
-                      Tab: {
-                        href: '/graphql',
-                        label: 'GraphQL',
+          if (isEnabled) {
+            return {
+              ...collection,
+              admin: {
+                ...collection.admin,
+                components: {
+                  ...collection.admin?.components,
+                  views: {
+                    Edit: {
+                      ...collection.admin?.components?.views?.Edit,
+                      Graphql: {
+                        path: '/graphql',
+                        Tab: {
+                          href: '/graphql',
+                          label: 'GraphQL',
+                        },
+                        Component: ({ user }) => (
+                          <GraphqlViewComponent
+                            user={user}
+                            initialEndpoint={
+                              pluginConfig.graphqlUrl
+                                ? pluginConfig.graphqlUrl
+                                : `${config.serverURL}/api/${config.routes?.graphQL || 'graphql'}`
+                            }
+                          />
+                        ),
                       },
-                      Component: ({ user }) => (
-                        <GraphqlViewComponent
-                          user={user}
-                          initialEndpoint={
-                            pluginConfig.graphqlUrl
-                              ? pluginConfig.graphqlUrl
-                              : `${config.serverURL}/api/${config.routes?.graphQL || 'graphql'}`
-                          }
-                        />
-                      ),
                     },
                   },
                 },
               },
-            },
+            }
           }
-        }
 
-        return collection
-      }) || [],
+          return collection
+        }) || [],
       // @ts-expect-error view prop type mismatch, but it works
-      globals: config.globals?.map(global => {
-        const isEnabled = pluginConfig?.globals?.includes(global.slug)
+      globals:
+        config.globals?.map(global => {
+          const isEnabled = pluginConfig?.globals?.includes(global.slug) || !pluginConfig?.globals
 
-        if (isEnabled) {
-          return {
-            ...global,
-            admin: {
-              ...global.admin,
-              components: {
-                ...global.admin?.components,
-                views: {
-                  Edit: {
-                    ...global.admin?.components?.views?.Edit,
-                    Graphql: {
-                      path: '/graphql',
-                      Tab: {
-                        href: '/graphql',
-                        label: 'GraphQL',
+          if (isEnabled) {
+            return {
+              ...global,
+              admin: {
+                ...global.admin,
+                components: {
+                  ...global.admin?.components,
+                  views: {
+                    Edit: {
+                      ...global.admin?.components?.views?.Edit,
+                      Graphql: {
+                        path: '/graphql',
+                        Tab: {
+                          href: '/graphql',
+                          label: 'GraphQL',
+                        },
+                        Component: ({ user }) => (
+                          <GraphqlViewComponent
+                            user={user}
+                            initialEndpoint={
+                              pluginConfig.graphqlUrl
+                                ? pluginConfig.graphqlUrl
+                                : `${config.serverURL}/api/${config.routes?.graphQL || 'graphql'}`
+                            }
+                          />
+                        ),
                       },
-                      Component: ({ user }) => (
-                        <GraphqlViewComponent
-                          user={user}
-                          initialEndpoint={
-                            pluginConfig.graphqlUrl
-                              ? pluginConfig.graphqlUrl
-                              : `${config.serverURL}/api/${config.routes?.graphQL || 'graphql'}`
-                          }
-                        />
-                      ),
                     },
                   },
                 },
               },
-            },
+            }
           }
-        }
 
-        return global
-      }) || [],
+          return global
+        }) || [],
     }
 
     return updatedConfig
