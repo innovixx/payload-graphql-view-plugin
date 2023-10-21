@@ -2,6 +2,7 @@ import React from 'react'
 import type { Config, Plugin } from 'payload/config'
 
 import { GraphqlViewComponent } from './components'
+import { getGraphqlQuery } from './endpoints/getGraphqlSchema'
 import type { PluginConfig } from './types'
 
 export default (pluginConfig: PluginConfig): Plugin =>
@@ -38,6 +39,8 @@ export default (pluginConfig: PluginConfig): Plugin =>
                                 ? pluginConfig.graphqlUrl
                                 : `${config.serverURL}/api/${config.routes?.graphQL || 'graphql'}`
                             }
+                            type="collection"
+                            collection={config.collections?.find(c => c.slug === collection.slug)}
                           />
                         ),
                       },
@@ -79,6 +82,8 @@ export default (pluginConfig: PluginConfig): Plugin =>
                                 ? pluginConfig.graphqlUrl
                                 : `${config.serverURL}/api/${config.routes?.graphQL || 'graphql'}`
                             }
+                            type="global"
+                            global={config.globals?.find(g => g.slug === global.slug)}
                           />
                         ),
                       },
@@ -91,6 +96,7 @@ export default (pluginConfig: PluginConfig): Plugin =>
 
           return global
         }) || [],
+      endpoints: [...(config.endpoints || []), getGraphqlQuery],
     }
 
     return updatedConfig
