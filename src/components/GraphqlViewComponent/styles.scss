@@ -122,6 +122,10 @@ body.graphiql-dark  [data-radix-popper-content-wrapper] {
   --popover-border: 1px solid hsl(var(--color-neutral));
 }
 
+.CodeMirror-cursor {
+  border-left-color: hsla(var(--color-neutral), 1);
+}
+
 .graphiql-container,
 .CodeMirror-info,
 .CodeMirror-lint-tooltip,
