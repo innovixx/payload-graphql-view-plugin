@@ -37,9 +37,8 @@ const getCollectionQuery = (graphQL: Collection['graphQL'], depth: number): stri
   const typeName = graphQL?.type?.name
   const fields = graphQL?.type?.getFields()
 
-  return `
-query ${typeName}($documentId: String!, $draft: Boolean, $fallbackLocale: FallbackLocaleInputType, $locale: LocaleInputType) {
-  ${typeName} (id: $documentId, draft: $draft, fallbackLocale: $fallbackLocale, locale: $locale) {${generateGraphQLFields(
+  return `query ${typeName}($documentId: String!, $draft: Boolean) {
+  ${typeName} (id: $documentId, draft: $draft) {${generateGraphQLFields(
     fields,
     depth,
   )}
@@ -53,8 +52,7 @@ const getGlobalQuery = (graphqlObject: Collection['graphQL'], depth: number): st
   const typeName = graphqlObject?.type?.name
   const fields = graphqlObject?.type?.getFields()
 
-  return `
-query ${typeName} {
+  return `query ${typeName} {
   ${typeName} {${generateGraphQLFields(fields, depth)}
   }
 }`
