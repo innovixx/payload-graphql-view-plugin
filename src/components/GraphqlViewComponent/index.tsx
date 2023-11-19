@@ -12,6 +12,7 @@ type Props = AdminViewProps & {
   type: 'collection' | 'global'
   collection?: CollectionConfig
   global?: GlobalConfig
+  maxDepth?: number
 }
 
 export const GraphqlViewComponent: FunctionComponent<Props> = props => {
@@ -24,6 +25,7 @@ export const GraphqlViewComponent: FunctionComponent<Props> = props => {
     initialParams: {
       slug: props.collection?.slug || props.global?.slug || '',
       type: props.type,
+      depth: props.maxDepth,
     },
   })
 

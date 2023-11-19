@@ -41,6 +41,7 @@ export default (pluginConfig: PluginConfig): Plugin =>
                             }
                             type="collection"
                             collection={config.collections?.find(c => c.slug === collection.slug)}
+                            maxDepth={pluginConfig.maxDepth}
                           />
                         ),
                       },
