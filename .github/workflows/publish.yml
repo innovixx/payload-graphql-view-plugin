@@ -1,0 +1,80 @@
+name: Publish
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Zip artifact
+        run: zip -r artifact.zip . -q 
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifact
+          path: ./artifact.zip
+
+  publish-npm:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: artifact
+          path: .
+
+      - name: Unzip artifact
+        run: |
+          unzip -q artifact.zip
+          rm artifact.zip
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: https://registry.npmjs.org/
+
+      - name: Publish to NPM
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+  publish-github:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: production
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: artifact
+          path: .
+
+      - name: Unzip artifact
+        run: |
+          unzip -q artifact.zip
+          rm artifact.zip
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: https://npm.pkg.github.com/
+
+      - name: Publish to GitHub Packages
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
