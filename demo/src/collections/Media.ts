@@ -19,6 +19,11 @@ const Media: CollectionConfig = {
       type: 'text',
       required: true,
     },
+    {
+      name: 'relatedPost',
+      type: 'relationship',
+      relationTo: 'posts',
+    },
   ],
 }
 

@@ -49,11 +49,13 @@ export default buildConfig({
   },
   plugins: [
     plugin({
-      collections: [Pages.slug],
-      globals: [HomePage.slug],
+      graphqlSchema: path.resolve(__dirname, 'schema.graphql'),
     }),
   ],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
+  },
+  graphQL: {
+    schemaOutputFile: path.resolve(__dirname, 'schema.graphql'),
   },
 })
