@@ -1,7 +1,10 @@
 import React from 'react'
+import deepmerge from 'deepmerge'
+import path from 'path'
 import type { Config, Plugin } from 'payload/config'
 
 import { GraphqlViewComponent } from './components'
+import { getGraphqlQuery } from './endpoints/getGraphqlSchema'
 import type { PluginConfig } from './types'
 
 export default (pluginConfig: PluginConfig): Plugin =>
@@ -38,6 +41,9 @@ export default (pluginConfig: PluginConfig): Plugin =>
                                 ? pluginConfig.graphqlUrl
                                 : `${config.serverURL}/api/${config.routes?.graphQL || 'graphql'}`
                             }
+                            type="collection"
+                            collection={config.collections?.find(c => c.slug === collection.slug)}
+                            maxDepth={pluginConfig.maxDepth}
                           />
                         ),
                       },
@@ -79,6 +85,8 @@ export default (pluginConfig: PluginConfig): Plugin =>
                                 ? pluginConfig.graphqlUrl
                                 : `${config.serverURL}/api/${config.routes?.graphQL || 'graphql'}`
                             }
+                            type="global"
+                            global={config.globals?.find(g => g.slug === global.slug)}
                           />
                         ),
                       },
@@ -91,6 +99,23 @@ export default (pluginConfig: PluginConfig): Plugin =>
 
           return global
         }) || [],
+      endpoints: [...(config.endpoints || []), getGraphqlQuery(pluginConfig?.graphqlSchema)],
+      admin: {
+        ...config.admin,
+        webpack: webpackConfig => {
+          const newConfig = {
+            ...webpackConfig,
+            resolve: {
+              ...webpackConfig.resolve,
+              alias: {
+                ...webpackConfig.resolve.alias,
+                fs: path.resolve(__dirname, './utils/emptyModule.js'),
+              },
+            },
+          }
+          return newConfig
+        },
+      },
     }
 
     return updatedConfig

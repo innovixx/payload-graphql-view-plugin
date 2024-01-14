@@ -31,6 +31,30 @@ const Pages: CollectionConfig = {
       name: 'date',
       type: 'date',
     },
+    {
+      name: 'image',
+      type: 'upload',
+      relationTo: 'media',
+      required: true,
+    },
+    {
+      name: 'blocks',
+      type: 'blocks',
+      minRows: 0,
+      maxRows: 4,
+      blocks: [
+        {
+          slug: 'title',
+          fields: [
+            {
+              name: 'title',
+              type: 'text',
+              required: true,
+            },
+          ],
+        },
+      ],
+    },
   ],
 }
 
