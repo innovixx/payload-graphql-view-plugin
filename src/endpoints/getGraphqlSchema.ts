@@ -110,10 +110,7 @@ const getFields = (
   )
 
   if (!typeDefinition) {
-    if (scalarTypes.includes(type)) {
-      return ''
-    }
-    throw new Error(`Type "${type}" not found in schema.`)
+    return ''
   }
 
   let fields = ''
