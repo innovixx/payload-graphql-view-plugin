@@ -26,7 +26,7 @@ interface Arg {
   }
 }
 
-const scalarTypes = ['String', 'Int', 'Float', 'Boolean', 'ID', 'DateTime']
+const scalarTypes = ['String', 'Int', 'Float', 'Boolean', 'ID', 'DateTime', 'JSON']
 
 const formatFieldArguments = (fieldArgs: Arg[]): string => {
   return fieldArgs
