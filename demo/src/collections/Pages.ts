@@ -35,7 +35,6 @@ const Pages: CollectionConfig = {
       name: 'image',
       type: 'upload',
       relationTo: 'media',
-      required: true,
     },
     {
       name: 'blocks',
