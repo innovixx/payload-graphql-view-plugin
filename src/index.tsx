@@ -1,5 +1,4 @@
 import React from 'react'
-import deepmerge from 'deepmerge'
 import path from 'path'
 import type { Config, Plugin } from 'payload/config'
 
@@ -87,6 +86,7 @@ export default (pluginConfig: PluginConfig): Plugin =>
                             }
                             type="global"
                             global={config.globals?.find(g => g.slug === global.slug)}
+                            maxDepth={pluginConfig.maxDepth}
                           />
                         ),
                       },
@@ -99,7 +99,7 @@ export default (pluginConfig: PluginConfig): Plugin =>
 
           return global
         }) || [],
-      endpoints: [...(config.endpoints || []), getGraphqlQuery(pluginConfig?.graphqlSchema)],
+      endpoints: [...(config.endpoints || []), getGraphqlQuery()],
       admin: {
         ...config.admin,
         webpack: webpackConfig => {

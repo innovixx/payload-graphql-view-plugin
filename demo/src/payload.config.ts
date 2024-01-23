@@ -47,11 +47,7 @@ export default buildConfig({
     defaultLocale: 'en',
     fallback: true,
   },
-  plugins: [
-    plugin({
-      graphqlSchema: path.resolve(__dirname, 'schema.graphql'),
-    }),
-  ],
+  plugins: [plugin({})],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
   },

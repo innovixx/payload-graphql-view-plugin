@@ -10,7 +10,7 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "outDir": "./dist",
-    "rootDir": "../",
+    "rootDir": "./src",
     "jsx": "react",
   },
   "ts-node": {

@@ -15,8 +15,6 @@ import type { Endpoint } from 'payload/config'
 
 import { toSingularString } from '../utils/toSingularString'
 
-type GraphQLSchema = string
-
 interface Arg {
   name: { value: string }
   type: {
@@ -161,7 +159,7 @@ const getFields = (
 }
 
 const generatePrefilledQuery = (
-  schema: GraphQLSchema,
+  schema: string,
   queryType: string,
   depth: number,
 ): string => {
@@ -202,14 +200,14 @@ const generatePrefilledQuery = (
   return graphqlPrint(parse(query))
 }
 
-export const getGraphqlQuery = (graphqlSchema: string): Endpoint => ({
+export const getGraphqlQuery = (): Endpoint => ({
   path: '/getGraphqlQuery',
   method: 'get',
   handler: async (req, res) => {
     const slug = req.query.slug as string
     const depth = req.query.depth as string
 
-    const graphqlSchemaContents = fs.readFileSync(graphqlSchema, 'utf8')
+    const graphqlSchemaContents = fs.readFileSync(req.payload.config.graphQL.schemaOutputFile, 'utf8')
 
     const prefilledQuery = generatePrefilledQuery(
       graphqlSchemaContents,

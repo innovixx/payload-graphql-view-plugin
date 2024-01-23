@@ -3,5 +3,4 @@ export interface PluginConfig {
   globals?: string[]
   graphqlUrl?: string
   maxDepth?: number
-  graphqlSchema: string
 }

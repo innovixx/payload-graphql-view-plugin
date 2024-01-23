@@ -131,6 +131,8 @@ input User_where_and {
   createdAt: User_createdAt_operator
   email: User_email_operator
   id: User_id_operator
+  AND: [User_where_and]
+  OR: [User_where_or]
 }
 
 input User_where_or {
@@ -138,6 +140,8 @@ input User_where_or {
   createdAt: User_createdAt_operator
   email: User_email_operator
   id: User_id_operator
+  AND: [User_where_and]
+  OR: [User_where_or]
 }
 
 type usersDocAccess {
@@ -291,7 +295,7 @@ type Page {
   excerpt: String
   slug: String!
   date: DateTime
-  image(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType, where: Page_Image_where): Media!
+  image(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType, where: Page_Image_where): Media
   blocks: [Page_Blocks!]
   updatedAt: DateTime
   createdAt: DateTime
@@ -468,6 +472,8 @@ input Page_Image_where_and {
   width: Page_Image_width_operator
   height: Page_Image_height_operator
   id: Page_Image_id_operator
+  AND: [Page_Image_where_and]
+  OR: [Page_Image_where_or]
 }
 
 input Page_Image_where_or {
@@ -482,6 +488,8 @@ input Page_Image_where_or {
   width: Page_Image_width_operator
   height: Page_Image_height_operator
   id: Page_Image_id_operator
+  AND: [Page_Image_where_and]
+  OR: [Page_Image_where_or]
 }
 
 union Page_Blocks = Title
@@ -565,6 +573,7 @@ input Page_date_operator {
 input Page_image_operator {
   equals: String
   not_equals: String
+  exists: Boolean
 }
 
 input Page_updatedAt_operator {
@@ -609,6 +618,8 @@ input Page_where_and {
   updatedAt: Page_updatedAt_operator
   createdAt: Page_createdAt_operator
   id: Page_id_operator
+  AND: [Page_where_and]
+  OR: [Page_where_or]
 }
 
 input Page_where_or {
@@ -620,6 +631,8 @@ input Page_where_or {
   updatedAt: Page_updatedAt_operator
   createdAt: Page_createdAt_operator
   id: Page_id_operator
+  AND: [Page_where_and]
+  OR: [Page_where_or]
 }
 
 type pagesDocAccess {
@@ -941,6 +954,8 @@ input Post_where_and {
   updatedAt: Post_updatedAt_operator
   createdAt: Post_createdAt_operator
   id: Post_id_operator
+  AND: [Post_where_and]
+  OR: [Post_where_or]
 }
 
 input Post_where_or {
@@ -950,6 +965,8 @@ input Post_where_or {
   updatedAt: Post_updatedAt_operator
   createdAt: Post_createdAt_operator
   id: Post_id_operator
+  AND: [Post_where_and]
+  OR: [Post_where_or]
 }
 
 type postsDocAccess {
@@ -1258,6 +1275,8 @@ input versionsPost_where_and {
   createdAt: versionsPost_createdAt_operator
   updatedAt: versionsPost_updatedAt_operator
   id: versionsPost_id_operator
+  AND: [versionsPost_where_and]
+  OR: [versionsPost_where_or]
 }
 
 input versionsPost_where_or {
@@ -1270,6 +1289,8 @@ input versionsPost_where_or {
   createdAt: versionsPost_createdAt_operator
   updatedAt: versionsPost_updatedAt_operator
   id: versionsPost_id_operator
+  AND: [versionsPost_where_and]
+  OR: [versionsPost_where_or]
 }
 
 type allMedia {
@@ -1429,6 +1450,8 @@ input Media_where_and {
   width: Media_width_operator
   height: Media_height_operator
   id: Media_id_operator
+  AND: [Media_where_and]
+  OR: [Media_where_or]
 }
 
 input Media_where_or {
@@ -1443,6 +1466,8 @@ input Media_where_or {
   width: Media_width_operator
   height: Media_height_operator
   id: Media_id_operator
+  AND: [Media_where_and]
+  OR: [Media_where_or]
 }
 
 type mediaDocAccess {
@@ -1831,6 +1856,8 @@ input PayloadPreference_where_and {
   updatedAt: PayloadPreference_updatedAt_operator
   createdAt: PayloadPreference_createdAt_operator
   id: PayloadPreference_id_operator
+  AND: [PayloadPreference_where_and]
+  OR: [PayloadPreference_where_or]
 }
 
 input PayloadPreference_where_or {
@@ -1840,6 +1867,8 @@ input PayloadPreference_where_or {
   updatedAt: PayloadPreference_updatedAt_operator
   createdAt: PayloadPreference_createdAt_operator
   id: PayloadPreference_id_operator
+  AND: [PayloadPreference_where_and]
+  OR: [PayloadPreference_where_or]
 }
 
 type payload_preferencesDocAccess {
@@ -3255,7 +3284,7 @@ input mutationPageInput {
   excerpt: String
   slug: String!
   date: String
-  image: String!
+  image: String
   blocks: JSON
   updatedAt: String
   createdAt: String
