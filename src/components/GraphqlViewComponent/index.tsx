@@ -51,22 +51,21 @@ export const GraphqlViewComponent: FunctionComponent<Props> = props => {
     }
   }, [data, documentId, props.type])
 
-  if (!props.initialEndpoint) return <div className={baseClass}>No endpoint provided</div>
   const fetcher = createGraphiQLFetcher({
     url: props.initialEndpoint as string,
   })
 
-  if (!ready) return null
-
   return (
     <div className={baseClass} key={documentId}>
-      <GraphiQLComponent
-        fetcher={fetcher}
-        editorTheme="codemirror light"
-        key={documentId}
-        storage={undefined}
-        defaultQuery={data}
-      />
+      {ready && (
+        <GraphiQLComponent
+          fetcher={fetcher}
+          editorTheme="codemirror light"
+          key={documentId}
+          storage={undefined}
+          defaultQuery={data}
+        />
+      )}
     </div>
   )
 }

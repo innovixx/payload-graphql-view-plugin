@@ -207,6 +207,11 @@ export const getGraphqlQuery = (): Endpoint => ({
     const slug = req.query.slug as string
     const depth = req.query.depth as string
 
+    if (!fs.existsSync(req.payload.config.graphQL.schemaOutputFile)) {
+      req.payload.logger.error('GraphQL schema file not found. Please run "payload graphql:generate-schema" first.')
+      return res.status(500).send('GraphQL schema file not found.')
+    }
+
     const graphqlSchemaContents = fs.readFileSync(req.payload.config.graphQL.schemaOutputFile, 'utf8')
 
     const prefilledQuery = generatePrefilledQuery(
