@@ -26,6 +26,9 @@ interface Arg {
 
 const scalarTypes = ['String', 'Int', 'Float', 'Boolean', 'ID', 'DateTime', 'JSON']
 
+const fieldsMemoizationCache: any = {};
+const inlineFragmentsMemoizationCache: any = {};
+
 const formatFieldArguments = (fieldArgs: Arg[]): string => {
   return fieldArgs
     .filter((arg: Arg) => arg.type.kind === 'NonNullType')
@@ -54,6 +57,12 @@ const getInlineFragments = (
   maxDepth: number,
   visitedTypes: Set<string>
 ): string => {
+
+  const cacheKey = `${typeName}-${currentDepth}`;
+  if (inlineFragmentsMemoizationCache[cacheKey]) {
+    return inlineFragmentsMemoizationCache[cacheKey];
+  }
+
   const unionOrInterfaceTypeDefinition = schemaAst.definitions.find(
     (def: ASTNode):
       def is UnionTypeDefinitionNode | InterfaceTypeDefinitionNode =>
@@ -87,6 +96,7 @@ const getInlineFragments = (
     }
   });
 
+  inlineFragmentsMemoizationCache[cacheKey] = fragments;
   return fragments;
 };
 
@@ -98,8 +108,14 @@ const getFields = (
   visitedTypes: Set<string> = new Set(),
 ): string => {
   if (currentDepth > maxDepth || visitedTypes.has(type)) {
-    return ''
+    return '';
   }
+
+  const cacheKey = `${type}-${currentDepth}`;
+  if (fieldsMemoizationCache[cacheKey]) {
+    return fieldsMemoizationCache[cacheKey];
+  }
+
   visitedTypes.add(type)
 
   const typeDefinition = schemaAst.definitions.find(
@@ -163,6 +179,7 @@ const generatePrefilledQuery = (
   queryType: string,
   depth: number,
 ): string => {
+
   const schemaAst = parse(schema)
   let queryFields = ''
   let queryArgsStr = ''
@@ -196,8 +213,9 @@ const generatePrefilledQuery = (
       }
     }
   `
+  const cleanedQuery = query.replace(/(\{\s*\})/g, '');
 
-  return graphqlPrint(parse(query))
+  return graphqlPrint(parse(cleanedQuery))
 }
 
 export const getGraphqlQuery = (): Endpoint => ({
