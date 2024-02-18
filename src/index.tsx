@@ -100,22 +100,6 @@ export default (pluginConfig: PluginConfig): Plugin =>
           return global
         }) || [],
       endpoints: [...(config.endpoints || []), getGraphqlQuery()],
-      admin: {
-        ...config.admin,
-        webpack: webpackConfig => {
-          const newConfig = {
-            ...webpackConfig,
-            resolve: {
-              ...webpackConfig.resolve,
-              alias: {
-                ...webpackConfig.resolve.alias,
-                fs: path.resolve(__dirname, './utils/emptyModule.js'),
-              },
-            },
-          }
-          return newConfig
-        },
-      },
     }
 
     return updatedConfig
